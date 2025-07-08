@@ -20,4 +20,6 @@ jobs:
       run: docker run -d -p 8080:80 --name test-nginx my-nginx
 
     - name: Curl test page
-      run: curl -s http://localhost:8080 | grep "Pipeline Deployed"
+      run: |
+        sleep 5
+        curl -s http://localhost:8080 | grep "Pipeline Deployed"
