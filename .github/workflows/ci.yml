@@ -1,0 +1,23 @@
+name: CI/CD Demo
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Build Docker image
+      run: docker build -t my-nginx .
+
+    - name: Run container for test
+      run: docker run -d -p 8080:80 --name test-nginx my-nginx
+
+    - name: Curl test page
+      run: curl -s http://localhost:8080 | grep "Pipeline Deployed"
